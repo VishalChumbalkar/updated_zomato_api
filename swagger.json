@@ -1,0 +1,203 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Zomato Order API",
+    "description": "This is a sample food order API which is designed by Vishal Chumbalkar.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "orders",
+      "description": "Everything about Orders."
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Order Details"
+        ],
+        "summary": "Get all the Orders.",
+        "description": "Get all the Order Details.",
+        "responses": {
+          "200": {
+            "description": "Succesfully fetched all orders."
+          }
+        }
+      }
+    },
+
+    "/addOrder":{
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Create new order.",
+        "description": "Create new order.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/orders"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Succesfully created new order."
+          }
+        }
+      }
+     },
+
+    "/food/{menu}": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Get menu details by providing menu",
+        "description": "Get menu details by providing menu",
+        "parameters": [
+          {
+            "name": "menu",
+            "in": "path",
+            "description": "menu of order to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully fetched menu form db by its menu."
+          },
+          "404": {
+            "description": "not found!"
+          }
+        }
+      }
+    },
+
+
+    "/deleteOrder/{orId}":{
+      "delete": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Delete order data by providing orderId.",
+        "description": "Delete order data by providing orderId.",
+        "parameters": [
+          {
+            "name": "orId",
+            "in": "path",
+            "description": "ID of order to return",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully deleted order data by its ID."
+          }
+        }
+      }
+    },
+
+    "/updateOrder/{uId}":{
+      "put": {
+        "tags": [
+          "orders"
+        ],
+        "description": "Update Order details by providing order_Id.",
+        "summary": "Update Order details by providing order_Id.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref":"#/components/schemas/orders"
+              }
+            }
+          }
+        },
+
+        "parameters": [
+          {
+            "name": "uId",
+            "in": "path",
+            "description": "ID of order to update",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully updated order details."
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "orders": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number"
+          },
+
+          "username": {
+            "type":"string"
+          },
+        
+          "rest_id": {
+            "type": "number"
+          },
+        
+          "rest_name": {
+            "type": "string"
+          },
+        
+          "food_item": {
+            "type": "string"
+          },
+          
+          "quantity": {
+            "type": "number"
+          },
+        
+          "price": {
+            "type": "number"
+          },
+        
+          "city": {
+            "type": "string"
+          }
+        },
+        
+        "example": {
+          "user_id": 1,
+          "username": "Vishal C",        
+          "rest_id": 121,        
+          "rest_name": "Siddhkala",        
+          "food_item": "Dosa",          
+          "quantity": 5,        
+          "price": 60,        
+          "city": "Pune"
+        }
+      }
+    }
+  }
+}
